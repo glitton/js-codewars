@@ -907,3 +907,85 @@ function expandedForm(digits) {
 // p(expandedForm(12)) === "10 + 2";
 // p(expandedForm(42)) === "40 + 2";
 // p(expandedForm(70304)) === "7000 + 300 + 4";
+
+/* 30.  Anagram Difference
+P: Given two words, how many letters do you have to remove from them to make them anagrams?
+input: two strings
+output: int
+rules:
+- return an int that represents how many total letters need to be removed from both words so they are anagrams
+- all lower case
+
+E: 
+First word : c od e w ar s (4 letters removed od, ar)
+Second word : ha c k er r a nk (6 letters removed, ha, er, nk )
+Result : 10
+remove the letters so that the letters of word1 is equal to word2
+if word1 is equal to word2 return 0
+
+D: input string, use an object to get a letter count for word1 and word2
+IDEAS:
+compare objects key/value pairs
+What letters do both objects have?  Are their values different?  
+- if so, remove letters so the min values are the same
+What letters are unique to both objects?
+  - remove all of the unique ones
+END: both objects should have the same key/value pairs  
+
+A:
+if word1 is equal to word2, return 0
+Populate word1Count and word2Count objects
+Iterate over word1Count and compare key/value pairs
+  - check if word1Count key/value is not present in word2Count
+    - if not present, add the value of word1Count key/value 
+  - if present: check if the values are equal, 
+    - if so, removeLetterCount remains 0
+    - if not equal, get the difference and add that value to removeLetterCount
+Iterate over word2Count and compare key/value pairs    
+ - check if word2Count key/value is not present in word1Count
+    - if not present, add the value of word2Count key/value 
+Return removeLetterCount 
+
+*/
+
+function anagramDiff(word1, word2) {
+  let removeLetterCount = 0;
+
+  if (word1 === word2) return 0;
+
+  let word1Count = createLetterCount(word1);
+  let word2Count = createLetterCount(word2);
+
+  for (let letter in word1Count) {
+    if (!word2Count[letter]) {
+      removeLetterCount += word1Count[letter];
+    } else if (word2Count[letter] !== word1Count[letter]) {
+      removeLetterCount += Math.abs(word2Count[letter] - word1Count[letter]);
+    }
+  }
+
+  for (let ltr in word2Count) {
+    if (!word1Count[ltr]) {
+      removeLetterCount += word2Count[ltr];
+    }
+  }
+
+  return removeLetterCount;
+}
+
+function createLetterCount(word) {
+  let letterCount = {};
+  word.split("").forEach((letter) => {
+    letterCount[letter] = (letterCount[letter] || 0) + 1;
+  });
+  return letterCount;
+}
+
+// p(createLetterCount("codewars"));
+
+p(anagramDiff("", "")); // 0
+p(anagramDiff("a", "")); // 1
+p(anagramDiff("ab", "a")); // 1
+p(anagramDiff("ab", "cd")); // 4
+p(anagramDiff("aab", "a")); // 2
+p(anagramDiff("codewars", "hackerrank")); // 10
