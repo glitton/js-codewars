@@ -157,25 +157,25 @@ Iterate over the array
 Return result array  
 */
 
-const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+// const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
-function alphabetSymmetry(arr) {
-  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-  let result = [];
-  let count = 0;
+// function alphabetSymmetry(arr) {
+//   const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+//   let result = [];
+//   let count = 0;
 
-  arr.forEach((str) => {
-    for (let idx = 0; idx < str.length; idx++) {
-      if (str[idx].toLowerCase() === ALPHABET[idx]) {
-        count++;
-      }
-    }
-    result.push(count);
-    count = 0;
-  });
+//   arr.forEach((str) => {
+//     for (let idx = 0; idx < str.length; idx++) {
+//       if (str[idx].toLowerCase() === ALPHABET[idx]) {
+//         count++;
+//       }
+//     }
+//     result.push(count);
+//     count = 0;
+//   });
 
-  return result;
-}
+//   return result;
+// }
 
 // p(alphabetSymmetry(["abode", "ABc", "xyzD"])); //[4, 3, 1]);
 // p(alphabetSymmetry(["abide", "ABc", "xyz"])); //[4, 3, 0]); // true
@@ -707,7 +707,7 @@ Return kebabString
  
 */
 
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
+// const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 function kebabize(str) {
   let kebabString = str[0].toLowerCase();
@@ -983,9 +983,60 @@ function createLetterCount(word) {
 
 // p(createLetterCount("codewars"));
 
-p(anagramDiff("", "")); // 0
-p(anagramDiff("a", "")); // 1
-p(anagramDiff("ab", "a")); // 1
-p(anagramDiff("ab", "cd")); // 4
-p(anagramDiff("aab", "a")); // 2
-p(anagramDiff("codewars", "hackerrank")); // 10
+// p(anagramDiff("", "")); // 0
+// p(anagramDiff("a", "")); // 1
+// p(anagramDiff("ab", "a")); // 1
+// p(anagramDiff("ab", "cd")); // 4
+// p(anagramDiff("aab", "a")); // 2
+// p(anagramDiff("codewars", "hackerrank")); // 10
+
+/* 33. Replace With Alphabet Position
+P: Given a string, replace every letter with its position in the alphabet.
+If anything in the text isn't a letter, ignore it and don't return it.
+input: string
+outut: string
+rules:
+- return a new string that contains the numbered position of each letter
+- ignore non-alpha cars
+
+E: 
+
+D: string, use an array to store words?
+
+A:
+Create a constant alphabet and assign to a string containing the alphabet in lowercase
+Variables:
+- indexValue assign to empty array
+Create a clean version of the string without punctuation in lower case
+Transform string to an array of words and iterate over the array
+- for each word, iterate over each letter
+  - append the index of each letter (plus 1) into the indexValue array
+    - get the index by using the indexOf method, add 1
+Return the indexValue array as a string
+*/
+
+// p(alphabetPosition("The sunset sets at twelve o' clock.")); //"20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11"
+
+// //p(alphabetPosition("The narwhal bacons at midnight.")); //"20 8 5 14 1 18 23 8 1 12 2 1 3 15 14 19 1 20 13 9 4 14 9 7 8 20"
+
+/* 35. Mexican Wave
+
+*/
+
+function wave(str) {
+  let result = [];
+
+  for (let idx = 0; idx < str.length; idx += 1) {
+    if (str[idx] !== " " || str[idx] !== "") {
+      let newWave =
+        str.slice(0, idx) + str[idx].toUpperCase() + str.slice(idx + 1);
+      console.log(idx, str[idx].toUpperCase());
+      result.push(newWave);
+    } else {
+      return [];
+    }
+  }
+  // return result.filter((word) => word !== str);
+}
+
+// p(wave("two words"));
